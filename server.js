@@ -35,26 +35,13 @@ app.get('/admin/payments', (req,res) => {
   res.json(JSON.parse(fs.readFileSync(LOG_FILE, 'utf8')));
 });
 
-app.get('/api/data', requirePayment({
-  price: PRICE_DROPS,
-  payToAddress: PAY_TO_ADDRESS,
-  network: 'xrpl:1',
-  asset: 'XRP',
-  facilitatorUrl: FACILITATOR_URL,
-  resource: 'demo:api-data',
-  description: 'Pay-per-call data - 1000 drops'
-}), (req,res) => {
-  logEvent('payment_success', { route: '/api/data', amount: PRICE_DROPS });
-  res.json({ data: { timestamp: new Date().toISOString(), value: 'Agent Data Pack' }, paid: true });
-});
-
 app.get('/api/price', requirePayment({
   price: PRICE_CRYPTO_DROPS,
   payToAddress: PAY_TO_ADDRESS,
   network: 'xrpl:1',
   asset: 'XRP',
   facilitatorUrl: FACILITATOR_URL,
-  resource: 'demo:api-price',
+  resource: 'api:price',
   description: 'Live crypto price - 2000 drops'
 }), async (req,res) => {
   const symbol = (req.query.symbol || 'bitcoin').toLowerCase();
@@ -62,8 +49,45 @@ app.get('/api/price', requirePayment({
     const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${symbol}&vs_currencies=usd`);
     const data = await r.json();
     logEvent('payment_success', { route: '/api/price', symbol, amount: PRICE_CRYPTO_DROPS });
-    res.json({ symbol, price_usd: data[symbol]?.usd || null, paid: true });
-  } catch { res.status(500).json({ error: 'fetch failed' }); }
+    res.json({ symbol, price_usd: data[symbol]?.usd, source: 'coingecko', paid: true });
+  } catch { res.status(500).json({ error: 'price fetch failed' }); }
+});
+
+app.get('/api/weather', requirePayment({
+  price: PRICE_DROPS,
+  payToAddress: PAY_TO_ADDRESS,
+  network: 'xrpl:1',
+  asset: 'XRP',
+  facilitatorUrl: FACILITATOR_URL,
+  resource: 'api:weather',
+  description: 'Live weather - 1000 drops'
+}), async (req,res) => {
+  const city = req.query.city || 'london';
+  try {
+    const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}`);
+    const geoData = await geo.json();
+    const { latitude, longitude } = geoData.results[0];
+    const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+    const w = await weather.json();
+    logEvent('payment_success', { route: '/api/weather', city, amount: PRICE_DROPS });
+    res.json({ city, weather: w.current_weather, paid: true });
+  } catch { res.status(500).json({ error: 'weather fetch failed' }); }
+});
+
+app.get('/api/news', requirePayment({
+  price: PRICE_PREMIUM_DROPS,
+  payToAddress: PAY_TO_ADDRESS,
+  network: 'xrpl:1',
+  asset: 'XRP',
+  facilitatorUrl: FACILITATOR_URL,
+  resource: 'api:news',
+  description: 'Top news headlines - 5000 drops'
+}), async (req,res) => {
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?country=us&apiKey=demo');
+    logEvent('payment_success', { route: '/api/news', amount: PRICE_PREMIUM_DROPS });
+    res.json({ headlines: ['Headline 1','Headline 2','Headline 3'], paid: true, note: 'Demo headlines - replace with real API key' });
+  } catch { res.status(500).json({ error: 'news fetch failed' }); }
 });
 
 const port = process.env.PORT || 10000;
