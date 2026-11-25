@@ -1,67 +1,64 @@
-─ html           
-      <!DOCTYPE html>                                                                                                        
-      <html>                                                                                                                 
-      <head>           
-      <meta charset="utf-8">                                                                                                 
-      <title>AgentPay API - For AI Agents</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <style>                                                                                                                
-      body{font-family:system-ui,sans-serif;margin:0;background:#0f172a;color:#e2e8f0}                                       
-      header{background:#1e293b;padding:60px 20px;text-align:center}                                                         
-      h1{font-size:2.5em;margin:0}
-      .container{max-width:1000px;margin:auto;padding:20px}                                                                  
-      .card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin:20px 0}                       
-      code{background:#0f172a;padding:4px 8px;border-radius:4px}                                                             
-      pre{background:#0f172a;padding:15px;border-radius:8px;overflow:auto}                                                   
-      .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax:250px,1fr);gap:20px}                                   
-      a{color:#8b5cf6}                                                                                                       
-      </style>                                                                                                               
-      </head>                                                                                                                
-      <body>                                                                                                                 
-      <header>         
-      <h1>AgentPay API</h1>                                                                                                  
-      <p>Pay-per-call data for AI agents. Zero setup. Pay in XRP via x402.</p>
-      </header>                                                                                                              
-      <div class="container">                                                                                                
-      <div class="card">                                                                                                     
-      <h2>Why agents love it</h2>
-      <ul>
-      <li>No API keys, no signup</li>                                                                                        
-      <li>Pay per call with XRP via x402</li>                                                                                
-      <li>Instant JSON responses</li>                                                                                        
-      <li>Works with any agent framework</li>                                                                                
-      </ul>                                                                                                                  
-      </div>                                                                                                                 
-      <div class="card">                                                                                                     
-      <h2>Quick start</h2>                                                                                                   
-      <pre><code>curl https://xrp-agentic-paywall.onrender.com/api/ping</code></pre>
-      <pre><code># Python example                                                                                            
-      import requests                                                                                                        
-      r = requests.get('https://xrp-agentic-paywall.onrender.com/api/data')                                                  
-      print(r.json())</code></pre>                                                                                           
-      </div>                                                                                                                 
-      <div class="card">                                                                                                     
-      <h2>Endpoints</h2>                                                                                                     
-      <div class="grid">                                                                                                     
-      <div><strong>/api/data</strong><br>1000 drops<br>Agent data pack</div>
-      <div><strong>/api/price?symbol=BTC</strong><br>2000 drops<br>Crypto price</div>                                        
-      <div><strong>/api/summary?url=</strong><br>5000 drops<br>URL summary</div>                                             
-      <div><strong>/api/keywords?site=</strong><br>5000 drops<br>SEO keywords</div>                                          
-      </div>                                                                                                                 
-      <p><a href="/pricing">See pricing</a></p>                                                                              
-      </div>                                                                                                                 
-      <div class="card">
-      <h2>How it works</h2>                                                                                                  
-      <div class="card">
-      <h2>How it works</h2>                                                                                                  
-      <ol>                                                                                                                   
-      <li>Agent calls endpoint</li>             
-      <li>Receives 402 Payment Required</li>                                                                                 
-      <li>Agent pays 1000-5000 drops in XRP</li>                                                                             
-      <li>Agent retries, gets data instantly</li>                                                                            
-      </ol>                                                                                                                  
-      <p>All payments settle in XRP to rHsrj8Ez8oLcWdt8jSuAuqVNJtg1YKB6YC</p>                                                
-      </div>                                                                                                                 
-      </div>           
-      </body>                                                                                                                
-      </html>                             
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AgentPay API - For AI Agents</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0f172a;color:#e2e8f0}
+header{background:#1e293b;padding:60px 20px;text-align:center}
+h1{font-size:2.5em;margin:0}
+.container{max-width:1000px;margin:auto;padding:20px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin:20px 0}
+code{background:#0f172a;padding:4px 8px;border-radius:4px}
+pre{background:#0f172a;padding:15px;border-radius:8px;overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax:250px,1fr);gap:20px}
+a{color:#8b5cf6}
+</style>
+</head>
+<body>
+<header>
+<h1>AgentPay API</h1>
+<p>Pay-per-call data for AI agents. Zero setup. Pay in XRP.</p>
+</header>
+<div class="container">
+<div class="card">
+<h2>Why agents love it</h2>
+<ul>
+<li>No API keys, no signup</li>
+<li>Pay per call with XRP via x402</li>
+<li>Instant JSON responses</li>
+<li>Works with any agent framework</li>
+</ul>
+</div>
+<div class="card">
+<h2>Quick start</h2>
+<pre><code>curl https://xrp-agentic-paywall.onrender.com/api/ping</code></pre>
+<pre><code># Python example
+import requests
+r = requests.get('https://xrp-agentic-paywall.onrender.com/api/data')
+print(r.json())</code></pre>
+</div>
+<div class="card">
+<h2>Endpoints</h2>
+<div class="grid">
+<div><strong>/api/data</strong><br>1000 drops<br>Agent data pack</div>
+<div><strong>/api/price?symbol=BTC</strong><br>2000 drops<br>Crypto price</div>
+<div><strong>/api/summary?url=</strong><br>5000 drops<br>URL summary</div>
+<div><strong>/api/keywords?site=</strong><br>5000 drops<br>SEO keywords</div>
+</div>
+<p><a href="/pricing">See pricing</a></p>
+</div>
+<div class="card">
+<h2>How it works</h2>
+<ol>
+<li>Agent calls endpoint</li>
+<li>Receives 402 Payment Required</li>
+<li>Agent pays 1000-5000 drops in XRP</li>
+<li>Agent retries, gets data instantly</li>
+</ol>
+<p>All payments settle in XRP to rHsrj8Ez8oLcWdt8jSuAuqVNJtg1YKB6YC</p>
+</div>
+</div>
+</body>
+</html>
